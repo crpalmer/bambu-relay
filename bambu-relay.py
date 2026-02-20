@@ -1,7 +1,9 @@
 #!/usr/bin/python3
 
 import json
+import os
 import paho.mqtt.client as mqtt
+import sys
 import time
 
 ignored_errors = [
@@ -112,6 +114,10 @@ class EmailServerUserData:
     name = "email-server"
     log_level = mqtt.MQTT_LOG_INFO
 
+bambu_host = os.getenv("BAMBU_HOST")
+access_code = os.getenv("ACCESS_CODE")
+mqtt_host = os.getenv("MQTT_HOST")
+
 email_server = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
 email_server.user_data_set(EmailServerUserData())
 
@@ -120,7 +126,7 @@ email_server.on_disconnect = on_disconnect
 email_server.on_log = on_log
 
 email_server.username_pw_set("mqtt-to-email", "mqtt-to-email")
-email_server.connect("mqtt.crpalmer.org", 1883)
+email_server.connect(mqtt_host, 1883)
 email_server.loop_start()
 
 class BambuUserData:
@@ -139,10 +145,10 @@ bambu_client.on_disconnect = on_disconnect
 bambu_client.on_log = on_log
 bambu_client.on_message = bambu_on_message
 
-bambu_client.tls_set("/usr/local/etc/bambu.cert")
+bambu_client.tls_set("bambu.cert")
 bambu_client.tls_insecure_set(True)
-with open("/usr/local/etc/bambu-access-code.txt") as file:
-    bambu_client.username_pw_set("bblp", file.read().strip())
+bambu_client.username_pw_set("bblp", access_code)
 
-bambu_client.connect("h2d", 8883) # Connect to a local broker on port 1883
+print(f"Connecting to: {bambu_host}", file=sys.stderr)
+bambu_client.connect(bambu_host, 8883) # Connect to a local broker on port 1883
 bambu_client.loop_forever() # Keep the connection alive

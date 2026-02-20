@@ -1,0 +1,9 @@
+services:
+  bambu-relay-h2d:
+    image: bambu-relay
+    container_name: bambu-relay-h2d
+    environment:
+        BAMBU_HOST: h2d
+        ACCESS_CODE: 75875fca
+        MQTT_HOST: mqtt.crpalmer.org
+
