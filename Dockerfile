@@ -7,7 +7,6 @@ WORKDIR /app
 
 COPY bambu-relay.py /app/
 COPY bambu.cert /app/
-COPY bambu-access-code.txt /app/
 
 RUN pip install paho-mqtt
 
