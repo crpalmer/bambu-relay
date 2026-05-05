@@ -4,6 +4,7 @@ import json
 import os
 import paho.mqtt.client as mqtt
 import sys
+import ssl
 import time
 
 ignored_errors = [
@@ -145,8 +146,7 @@ bambu_client.on_disconnect = on_disconnect
 bambu_client.on_log = on_log
 bambu_client.on_message = bambu_on_message
 
-bambu_client.tls_set("bambu.cert")
-bambu_client.tls_insecure_set(True)
+bambu_client.tls_set(cert_reqs=ssl.CERT_NONE)
 bambu_client.username_pw_set("bblp", access_code)
 
 print(f"Connecting to: {bambu_host}", file=sys.stderr)

@@ -6,7 +6,6 @@ ENV mqtt_host=""
 WORKDIR /app
 
 COPY bambu-relay.py /app/
-COPY bambu.cert /app/
 
 RUN pip install paho-mqtt
 
