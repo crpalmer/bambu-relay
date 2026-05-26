@@ -136,7 +136,7 @@ class BambuUserData:
     current_err = "0"
     log_level = mqtt.MQTT_LOG_INFO
     email = email_server
-    topic = "alerts/h2d"
+    topic = "alerts/" + bambu_host
 
 bambu_client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
 bambu_client.user_data_set(BambuUserData())
