@@ -5,7 +5,7 @@ services:
     environment:
         BAMBU_HOST: h2d
         ACCESS_CODE: 75875fca
-        MQTT_HOST: mqtt.home
+        MQTT_HOST: mqtt.crpalmer.net
     restart: unless-stopped
 
   bambu-relay-x2d:
@@ -14,5 +14,5 @@ services:
     environment:
         BAMBU_HOST: x2d
         ACCESS_CODE: f8764fa2
-        MQTT_HOST: mqtt.home
+        MQTT_HOST: mqtt.crpalmer.net
     restart: unless-stopped
